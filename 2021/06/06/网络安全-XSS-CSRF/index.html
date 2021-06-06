@@ -18,7 +18,7 @@
   <meta name="author" content="Sean Z">
   <meta name="keywords" content="">
   
-  <title>初识hexo博客 - Hexo</title>
+  <title>网络安全-XSS &amp; CSRF - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -173,7 +173,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="初识hexo博客">
+            <span class="h2" id="subtitle" title="网络安全-XSS & CSRF">
               
             </span>
 
@@ -183,7 +183,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-06 15:07" pubdate>
+      <time datetime="2021-06-06 17:31" pubdate>
         2021年6月6日 下午
       </time>
     </span>
@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      472 字
+      1.3k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      13
        分钟
     </span>
   
@@ -235,83 +235,74 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">初识hexo博客</h1>
+            <h1 style="display: none">网络安全-XSS &amp; CSRF</h1>
             
             <div class="markdown-body">
-              <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
-<li>博客部署到远端时创建的github仓库名格式为<code>username.github.io</code>，<strong>且username一定要与github用户名一致。</strong></li>
-<li>windows操作系统要使用git bash，cmd无法执行一些终端命令</li>
-</ol>
-<h1 id="1-初建博客"><a href="#1-初建博客" class="headerlink" title="1. 初建博客"></a>1. 初建博客</h1><h2 id="1-1-配置环境、安装依赖"><a href="#1-1-配置环境、安装依赖" class="headerlink" title="1.1 配置环境、安装依赖"></a>1.1 配置环境、安装依赖</h2><ul>
-<li>安装node</li>
-<li>安装git</li>
-<li>安装hexo，在终端中执行<code>npm i -g hexo-cli</code>全局安装</li>
+              <h1 id="1-Cross-Site-Scripting"><a href="#1-Cross-Site-Scripting" class="headerlink" title="1. Cross Site Scripting"></a>1. Cross Site Scripting</h1><h2 id="1-1-XSS是什么"><a href="#1-1-XSS是什么" class="headerlink" title="1.1 XSS是什么"></a>1.1 XSS是什么</h2><p>XSS攻击是<strong>跨站脚本攻击</strong>。攻击者通过在网站注入恶意脚本，使之在用户的浏览器上运行，从而盗取用户信息，比如cookie等。这是因为网站没有对恶意代码进行过滤，与正常代码混合在一起了，浏览器没有办法分辨哪些脚本是可信的。</p>
+<h2 id="1-2-XSS有哪些类型"><a href="#1-2-XSS有哪些类型" class="headerlink" title="1.2 XSS有哪些类型"></a>1.2 XSS有哪些类型</h2><ul>
+<li><strong>存储型（服务器）</strong>，恶意代码提交到了网站的数据库中，当用户请求数据的时候，服务器将其拼接为HTML后返回给用户，从而导致恶意代码执行</li>
+<li><strong>反射性（服务器）</strong>，攻击者构建了特殊的URL，当服务器接受到请求后，从URL中获取数据，拼接到HTML后返回，从而导致恶意代码执行</li>
+<li><strong>DOM型（浏览器）</strong>，攻击者构建了特殊的URL，用户打开网站后，js脚本从URL中获取数据，从而导致了恶意代码的执行</li>
 </ul>
-<h2 id="1-2-创建博客"><a href="#1-2-创建博客" class="headerlink" title="1.2 创建博客"></a>1.2 创建博客</h2><ul>
-<li><p>进入到想要放置博客文件夹的位置，例如<code>cd D://</code></p>
+<h2 id="1-3-如何预防XSS"><a href="#1-3-如何预防XSS" class="headerlink" title="1.3 如何预防XSS"></a>1.3 如何预防XSS</h2><h3 id="1-3-1-恶意代码提交时过滤代码"><a href="#1-3-1-恶意代码提交时过滤代码" class="headerlink" title="1.3.1 恶意代码提交时过滤代码"></a>1.3.1 <strong>恶意代码提交时过滤代码</strong></h3><ul>
+<li><p>检测输入的信息，进行前端过滤和后端过滤</p>
+<p class="note note-danger"><strong>不推荐</strong><br/>
+    可能会引起乱码等意外的情况</p></li>
+<li><p>数据存入数据库中时进行转义处理。比如把<code>&amp; &lt; &gt; &quot; &#39; /</code> 等字符转义掉</p>
+<p class="note note-primary"><strong>推荐-服务端</strong><br/>
+    对于转义CSS内联样式，内敛JS，内联JSON等需要额外且复杂的转义策略</p></li>
+</ul>
+<h3 id="1-3-2-浏览器执行恶意代码时方案"><a href="#1-3-2-浏览器执行恶意代码时方案" class="headerlink" title="1.3.2 浏览器执行恶意代码时方案"></a>1.3.2 <strong>浏览器执行恶意代码时方案</strong></h3><ul>
+<li><p>纯前端渲染。</p>
+<ul>
+<li>先让浏览器加载一个静态HTML，此HTML中不包含任何跟业务相关数据。</li>
+<li>然后浏览器执行HTML的js脚本。</li>
+<li>JS通过ajax加载业务数据，调用DOM API更新到页面上。在纯前端渲染中，会明确告诉浏览器，下面要设置的内容)是文本<code>(.innerText)</code>还是属性<code>(.setAttribute)</code>还是要是<code>(.style)</code>。这样浏览器不会被轻易欺骗。</li>
+</ul>
+<p class="note note-primary"><strong>推荐-浏览器</strong><br/>
+    简单设置无法防御DOM型XSS，需要使用.textContent, vue避免使用v-html等</p></li>
+<li><p>白名单</p>
 </li>
-<li><p>创建博客文件夹，<code>mkdir myBlog</code></p>
+<li><p>限制输入内容长度。可以增加XSS攻击难度，但是没有从根本上解决问题<strong>（推荐）</strong></p>
 </li>
-<li><p>进入blog文件夹，<code>cd myBlog</code></p>
+<li><p>HTTP-only Cookie：禁止JS读取某些敏感Cookie，攻击者完成XSS注入之后也无法获取cookie<strong>（推荐）</strong></p>
 </li>
-<li><p>初始化博客，<code>hexo init</code></p>
-</li>
-<li><p>新建文章，<code>hexo new &quot;我的第一篇文章&quot;</code></p>
-</li>
-<li><p>使用markdown格式编辑这篇文章</p>
-</li>
-<li><p>生成博客，<code>hexo g</code></p>
-</li>
-<li><p>本地预览博客，<code>hexo s</code></p>
-</li>
-<li><p>清除旧数据，<code>hexo clean</code></p>
+<li><p>验证码：防止脚本冒充用户提交危险操作</p>
 </li>
 </ul>
-<h1 id="2-部署博客到远端"><a href="#2-部署博客到远端" class="headerlink" title="2. 部署博客到远端"></a>2. 部署博客到远端</h1><ul>
-<li><p>创建一个github仓库，仓库名格式为<code>username.github.io</code>，<strong>且username一定要与github用户名一致</strong>。</p>
-</li>
-<li><p>安装依赖<code>npm i --save hexo-deployer-git</code></p>
-</li>
-<li><p>配置blog文件夹里的<code>_config.yml</code>文件</p>
-<p class="note note-warning">注意！type, repo, branch后面一定要有一个空格，否则会失败！</p>
+<h1 id="2-Cross-Site-Request-Forgery"><a href="#2-Cross-Site-Request-Forgery" class="headerlink" title="2. Cross Site Request Forgery"></a>2. Cross Site Request Forgery</h1><h2 id="2-1-CSRF是什么"><a href="#2-1-CSRF是什么" class="headerlink" title="2.1 CSRF是什么"></a>2.1 CSRF是什么</h2><p>CSRF指跨站请求伪造攻击，攻击者诱导用户进入一个第三方网站，然后该网站向被攻击网站发送跨站请求。如果用户在被攻击网站中保存了登录状态，那么攻击者就可以利用这个登录状态，绕过后台的用户验证，冒充用户向服务器进行一些操作。这是利用了cookie会在同源请求中携带发送给服务器的特点，以实现用户冒充</p>
+<h2 id="2-2-CSRF有哪些类型"><a href="#2-2-CSRF有哪些类型" class="headerlink" title="2.2 CSRF有哪些类型"></a>2.2 CSRF有哪些类型</h2><ul>
+<li><strong>get型</strong>，比如一个img标签里构建了一个请求</li>
+<li><strong>post型</strong>，隐藏的表单，用户进入页面的时候自动提交</li>
+<li><strong>链接型</strong>，诱导用户点击一个链接，该链接会发送请求</li>
+</ul>
+<h2 id="2-3-如何预防CSRF"><a href="#2-3-如何预防CSRF" class="headerlink" title="2.3 如何预防CSRF"></a>2.3 如何预防CSRF</h2><h3 id="2-3-1-同源检测"><a href="#2-3-1-同源检测" class="headerlink" title="2.3.1 同源检测"></a>2.3.1 <strong>同源检测</strong></h3><p>使用Origin Header或者Referer Header确定源域名。</p>
+<ul>
+<li>O：大部分请求的Header中会携带Origin字段，如果存在即为同域。但也存在两种以外情况（IE11同源政策，302重定向）。</li>
+<li>R：验证HTTP头里的Referer字段（其中包括了请求来源地址）</li>
+</ul>
+<h3 id="2-3-2-CSRF-Token验证"><a href="#2-3-2-CSRF-Token验证" class="headerlink" title="2.3.2 CSRF Token验证"></a>2.3.2 <strong>CSRF Token验证</strong></h3><p>使用Token进行身份验证，这样CSRF攻击无法获取，也就冒充不了。需要注意的是，Token是可以放在cookie中的，为防止CSRF，就不能放在cookie中了，应当放在session中。</p>
+<p class="note note-primary"><strong>推荐</strong><br/>
+    安全性高，但是繁琐且消耗资源大。使用Token对单服务器在大流量的情况压力非常大。并且在会话中存储Token非常繁琐，而且不能在通用的拦截上统一处理所有的接口。</p>
 
-<div class="code-wrapper"><pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">deploy:
-	type: git
-    repo: 你的github仓库地址
-    branch: main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
-<li><p>清除旧数据，<code>hexo clean</code></p>
-</li>
-<li><p>生成博客，<code>hexo g</code></p>
-</li>
-<li><p>部署到远端 <code>hexo d</code></p>
-</li>
-<li><p>访问博客地址在线预览，网址为<code>你的用户名.github.io</code></p>
-</li>
+<h3 id="2-3-3-双重cookie验证"><a href="#2-3-3-双重cookie验证" class="headerlink" title="2.3.3 双重cookie验证"></a>2.3.3 <strong>双重cookie验证</strong></h3><p>在用户访问网站页面时，</p>
+<ul>
+<li>想请求域名注入一个cookie，内容为随机字符串</li>
+<li>在前端向后端发起请求时，取出cookie，并添加到URL的参数中</li>
+<li>后端接口验证Cookie中的字段与URL参数中的字段是否一致，不一致则拒绝。</li>
 </ul>
-<h1 id="3-更换主题"><a href="#3-更换主题" class="headerlink" title="3. 更换主题"></a>3. 更换主题</h1><ul>
-<li><p>在github上搜索<code>hexo-theme</code>找到喜欢的主题，推荐yilla, fluid-dev等</p>
-</li>
-<li><p>克隆主题。<code>git clone 目标主题的github地址 themes/xxx(主题的名字)</code></p>
-</li>
-<li><p>配置blog文件夹里的<code>_config.yml</code>文件</p>
-<div class="code-wrapper"><pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">language: zh-CN
-themes: 你克隆的主题<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
-<li><p>清除旧数据，<code>hexo clean</code></p>
-</li>
-<li><p>生成博客，<code>hexo g</code></p>
-</li>
-<li><p>部署到远端 <code>hexo d</code></p>
-</li>
-<li><p>访问博客地址在线预览，网址为<code>你的用户名.github.io</code></p>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p>作者：Sean</p>
-<p>本文章引用了codesheep程序羊的博客创建教程</p>
-<p>原链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo</a></p>
-</blockquote>
+<p class="note note-primary"><strong>推荐</strong><br/>
+    但是在大型网站上安全性没有Token高</p>
 
+<h3 id="2-3-4-使用samesite-cookie"><a href="#2-3-4-使用samesite-cookie" class="headerlink" title="2.3.4 使用samesite cookie"></a>2.3.4 使用<code>samesite cookie</code></h3><p>限制cookie不被第三方使用。将samesite设为strict，表示这个cookie在任何情况下都不可能作为第三方cookie。将其设置为Lax，如果是个GET请求，则这个cookie可以作为第三方cookie。</p>
+<p class="note note-primary"><strong>推荐</strong><br/>
+    但不支持子域，所以子域没有办法与主域共享登录信息</p>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903685122703367#heading-29">前端安全系列（一）：如何防止XSS攻击？</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903689702866952#heading-32">前端安全系列之二：如何防止CSRF攻击？</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
             </div>
             <hr>
             <div>
@@ -320,9 +311,9 @@ themes: 你克隆的主题<span aria-hidden="true" class="line-numbers-rows"><sp
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96/%E5%8D%9A%E5%AE%A2/">博客</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
                     
                   </div>
                 
@@ -330,7 +321,7 @@ themes: 你克隆的主题<span aria-hidden="true" class="line-numbers-rows"><sp
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                     
                   </div>
                 
@@ -347,15 +338,15 @@ themes: 你克隆的主题<span aria-hidden="true" class="line-numbers-rows"><sp
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/06/06/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8-XSS-CSRF/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">网络安全-XSS & CSRF</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/06/06/%E5%88%9D%E8%AF%86hexo%E5%8D%9A%E5%AE%A2/">
+                        <span class="hidden-mobile">初识hexo博客</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
