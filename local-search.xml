@@ -4,26 +4,19 @@
   
   
   <entry>
-    <title>我的第一篇博客</title>
-    <link href="/2021/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <url>/2021/06/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <title>初识hexo博客</title>
+    <link href="/2021/06/06/%E5%88%9D%E8%AF%86hexo%E5%8D%9A%E5%AE%A2/"/>
+    <url>/2021/06/06/%E5%88%9D%E8%AF%86hexo%E5%8D%9A%E5%AE%A2/</url>
     
-    <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p><hr><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/2021/06/06/hello-world/"/>
-    <url>/2021/06/06/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="注意重点"><a href="#注意重点" class="headerlink" title="注意重点"></a>注意重点</h1><ol><li>博客部署到远端时创建的github仓库名格式为<code>username.github.io</code>，且username一定要与github用户名一致。</li><li>windows要使用git bash，cmd无法执行一些终端命令</li></ol><h1 id="1-初建博客"><a href="#1-初建博客" class="headerlink" title="1. 初建博客"></a>1. 初建博客</h1><h2 id="1-1-配置环境、安装依赖"><a href="#1-1-配置环境、安装依赖" class="headerlink" title="1.1 配置环境、安装依赖"></a>1.1 配置环境、安装依赖</h2><ul><li>安装node</li><li>安装git</li><li>安装hexo，在终端中执行<code>npm i -g hexo-cli</code>全局安装</li></ul><h2 id="1-2-创建博客"><a href="#1-2-创建博客" class="headerlink" title="1.2 创建博客"></a>1.2 创建博客</h2><ul><li><p>进入到想要放置博客文件夹的位置，例如<code>cd D://</code></p></li><li><p>创建博客文件夹，<code>mkdir myBlog</code></p></li><li><p>进入blog文件夹，<code>cd myBlog</code></p></li><li><p>初始化博客，<code>hexo init</code></p></li><li><p>新建文章，<code>hexo new &quot;我的第一篇文章&quot;</code></p></li><li><p>使用markdown格式编辑这篇文章</p></li><li><p>生成博客，<code>hexo g</code></p></li><li><p>本地预览博客，<code>hexo s</code></p></li><li><p>清除旧数据，<code>hexo clean</code></p></li></ul><h1 id="2-部署博客到远端"><a href="#2-部署博客到远端" class="headerlink" title="2. 部署博客到远端"></a>2. 部署博客到远端</h1><ul><li><p>创建一个github仓库，仓库名格式为<code>username.github.io</code>，<strong>且username一定要与github用户名一致</strong>。</p></li><li><p>配置blog文件夹里的<code>_config.yml</code>文件</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 注意！type, repo, branch后面一定要有一个空格，否则会失败！</span><br><span class="hljs-attr">deploy</span>:<br>type: git<br>    <span class="hljs-attr">repo</span>: 你的github仓库地址<br>    <span class="hljs-attr">branch</span>: main<br></code></pre></td></tr></table></figure></li><li><p>清除旧数据，<code>hexo clean</code></p></li><li><p>生成博客，<code>hexo g</code></p></li><li><p>部署到远端 <code>hexo d</code></p></li><li><p>访问博客地址在线预览，网址为<code>你的用户名.github.io</code></p></li></ul><h1 id="3-更换主题"><a href="#3-更换主题" class="headerlink" title="3. 更换主题"></a>3. 更换主题</h1><ul><li><p>在github上搜索<code>hexo-theme</code>找到喜欢的主题，推荐yilla, fluid-dev等</p></li><li><p>克隆主题。<code>git clone 目标主题的github地址 themes/xxx(主题的名字)</code></p></li><li><p>配置blog文件夹里的<code>_config.yml</code>文件</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">language: zh-CN<br><span class="hljs-attr">themes</span>: 你克隆的主题<br></code></pre></td></tr></table></figure></li><li><p>清除旧数据，<code>hexo clean</code></p></li><li><p>生成博客，<code>hexo g</code></p></li><li><p>部署到远端 <code>hexo d</code></p></li><li><p>访问博客地址在线预览，网址为<code>你的用户名.github.io</code></p></li></ul><hr><blockquote><p>作者：Sean</p><p>本文章引用了codesheep程序羊的博客创建教程</p><p>原链接：<a href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo</a></p></blockquote>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>hexo, 个人博客</tag>
+      
+    </tags>
     
   </entry>
   

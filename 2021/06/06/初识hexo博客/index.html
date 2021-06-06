@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -18,7 +18,7 @@
   <meta name="author" content="Sean Z">
   <meta name="keywords" content="">
   
-  <title>我的第一篇博客 - Hexo</title>
+  <title>初识hexo博客 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -68,7 +68,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Sean的个人博客</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="我的第一篇博客">
+            <span class="h2" id="subtitle" title="初识hexo博客">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-06 09:06" pubdate>
-        2021年6月6日 上午
+      <time datetime="2021-06-06 15:07" pubdate>
+        2021年6月6日 下午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8 字
+      460 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      5
        分钟
     </span>
   
@@ -225,17 +225,87 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">我的第一篇博客</h1>
+            <h1 style="display: none">初识hexo博客</h1>
             
             <div class="markdown-body">
-              <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
+              <h1 id="注意重点"><a href="#注意重点" class="headerlink" title="注意重点"></a>注意重点</h1><ol>
+<li>博客部署到远端时创建的github仓库名格式为<code>username.github.io</code>，且username一定要与github用户名一致。</li>
+<li>windows要使用git bash，cmd无法执行一些终端命令</li>
+</ol>
+<h1 id="1-初建博客"><a href="#1-初建博客" class="headerlink" title="1. 初建博客"></a>1. 初建博客</h1><h2 id="1-1-配置环境、安装依赖"><a href="#1-1-配置环境、安装依赖" class="headerlink" title="1.1 配置环境、安装依赖"></a>1.1 配置环境、安装依赖</h2><ul>
+<li>安装node</li>
+<li>安装git</li>
+<li>安装hexo，在终端中执行<code>npm i -g hexo-cli</code>全局安装</li>
+</ul>
+<h2 id="1-2-创建博客"><a href="#1-2-创建博客" class="headerlink" title="1.2 创建博客"></a>1.2 创建博客</h2><ul>
+<li><p>进入到想要放置博客文件夹的位置，例如<code>cd D://</code></p>
+</li>
+<li><p>创建博客文件夹，<code>mkdir myBlog</code></p>
+</li>
+<li><p>进入blog文件夹，<code>cd myBlog</code></p>
+</li>
+<li><p>初始化博客，<code>hexo init</code></p>
+</li>
+<li><p>新建文章，<code>hexo new &quot;我的第一篇文章&quot;</code></p>
+</li>
+<li><p>使用markdown格式编辑这篇文章</p>
+</li>
+<li><p>生成博客，<code>hexo g</code></p>
+</li>
+<li><p>本地预览博客，<code>hexo s</code></p>
+</li>
+<li><p>清除旧数据，<code>hexo clean</code></p>
+</li>
+</ul>
+<h1 id="2-部署博客到远端"><a href="#2-部署博客到远端" class="headerlink" title="2. 部署博客到远端"></a>2. 部署博客到远端</h1><ul>
+<li><p>创建一个github仓库，仓库名格式为<code>username.github.io</code>，<strong>且username一定要与github用户名一致</strong>。</p>
+</li>
+<li><p>配置blog文件夹里的<code>_config.yml</code>文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 注意！type, repo, branch后面一定要有一个空格，否则会失败！</span><br><span class="hljs-attr">deploy</span>:<br>	type: git<br>    <span class="hljs-attr">repo</span>: 你的github仓库地址<br>    <span class="hljs-attr">branch</span>: main<br></code></pre></td></tr></table></figure></li>
+<li><p>清除旧数据，<code>hexo clean</code></p>
+</li>
+<li><p>生成博客，<code>hexo g</code></p>
+</li>
+<li><p>部署到远端 <code>hexo d</code></p>
+</li>
+<li><p>访问博客地址在线预览，网址为<code>你的用户名.github.io</code></p>
+</li>
+</ul>
+<h1 id="3-更换主题"><a href="#3-更换主题" class="headerlink" title="3. 更换主题"></a>3. 更换主题</h1><ul>
+<li><p>在github上搜索<code>hexo-theme</code>找到喜欢的主题，推荐yilla, fluid-dev等</p>
+</li>
+<li><p>克隆主题。<code>git clone 目标主题的github地址 themes/xxx(主题的名字)</code></p>
+</li>
+<li><p>配置blog文件夹里的<code>_config.yml</code>文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">language: zh-CN<br><span class="hljs-attr">themes</span>: 你克隆的主题<br></code></pre></td></tr></table></figure></li>
+<li><p>清除旧数据，<code>hexo clean</code></p>
+</li>
+<li><p>生成博客，<code>hexo g</code></p>
+</li>
+<li><p>部署到远端 <code>hexo d</code></p>
+</li>
+<li><p>访问博客地址在线预览，网址为<code>你的用户名.github.io</code></p>
+</li>
+</ul>
 <hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2>
+<blockquote>
+<p>作者：Sean</p>
+<p>本文章引用了codesheep程序羊的博客创建教程</p>
+<p>原链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo</a></p>
+</blockquote>
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/hexo-%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo, 个人博客</a>
+                    
+                  </div>
                 
               </div>
               
@@ -254,17 +324,37 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/06/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
                   </article>
                 </div>
               
             </div>
 
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@0.16.2/dist/Waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://hexo-blog-comments-neon.vercel.app/","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[],"emojiCDN":null,"emojiMaps":null,"anonymous":null},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        new Waline(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
             
           </article>
         </div>
