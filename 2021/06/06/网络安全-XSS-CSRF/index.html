@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      14
        分钟
     </span>
   
@@ -238,7 +238,11 @@
             <h1 style="display: none">网络安全-XSS &amp; CSRF</h1>
             
             <div class="markdown-body">
-              <h1 id="1-Cross-Site-Scripting"><a href="#1-Cross-Site-Scripting" class="headerlink" title="1. Cross Site Scripting"></a>1. Cross Site Scripting</h1><h2 id="1-1-XSS是什么"><a href="#1-1-XSS是什么" class="headerlink" title="1.1 XSS是什么"></a>1.1 XSS是什么</h2><p>XSS攻击是<strong>跨站脚本攻击</strong>。攻击者通过在网站注入恶意脚本，使之在用户的浏览器上运行，从而盗取用户信息，比如cookie等。这是因为网站没有对恶意代码进行过滤，与正常代码混合在一起了，浏览器没有办法分辨哪些脚本是可信的。</p>
+              <blockquote>
+<p>作者：Sean</p>
+<p>前言 ：XSS和CSRF是常见的网络安全问题，忽视它们可能为应用带来巨大的打击和损失。其中XSS名声在外，通常都会采取各种措施进行防护。而CSRF却经常被忽视，被认为攻击性没有XSS大。但两者可能造成的后果都是严重的。</p>
+</blockquote>
+<h1 id="1-Cross-Site-Scripting"><a href="#1-Cross-Site-Scripting" class="headerlink" title="1. Cross Site Scripting"></a>1. Cross Site Scripting</h1><h2 id="1-1-XSS是什么"><a href="#1-1-XSS是什么" class="headerlink" title="1.1 XSS是什么"></a>1.1 XSS是什么</h2><p>XSS攻击是<strong>跨站脚本攻击</strong>。攻击者通过在网站注入恶意脚本，使之在用户的浏览器上运行，从而盗取用户信息，比如cookie等。这是因为网站没有对恶意代码进行过滤，与正常代码混合在一起了，浏览器没有办法分辨哪些脚本是可信的。</p>
 <h2 id="1-2-XSS有哪些类型"><a href="#1-2-XSS有哪些类型" class="headerlink" title="1.2 XSS有哪些类型"></a>1.2 XSS有哪些类型</h2><ul>
 <li><strong>存储型（服务器）</strong>，恶意代码提交到了网站的数据库中，当用户请求数据的时候，服务器将其拼接为HTML后返回给用户，从而导致恶意代码执行</li>
 <li><strong>反射性（服务器）</strong>，攻击者构建了特殊的URL，当服务器接受到请求后，从URL中获取数据，拼接到HTML后返回，从而导致恶意代码执行</li>
