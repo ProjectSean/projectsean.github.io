@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.6k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      19
        分钟
     </span>
   
@@ -284,8 +284,11 @@
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-
-
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>使用了一个<code>callNow</code>限制了函数的执行，只有当timer被清除，<code>callNow</code>才为真，函数才执行。</li>
+<li>而定时器的作用缺变成了将自身清除，而不是限制函数的执行。这样与<code>callNow</code>结合后，在计时器计时期间，<code>callNow</code>始终不为真，函数就无法执行，起到了防抖的作用</li>
+<li>而第一次执行时，timer被定义成null，所以函数可以直接执行。</li>
+</ul>
 <h2 id="1-4-封装"><a href="#1-4-封装" class="headerlink" title="1.4 封装"></a>1.4 封装</h2><p>将以上两种情况都考虑并封装起来：</p>
 <div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span><span class="token parameter">func<span class="token punctuation">,</span> delay<span class="token punctuation">,</span> immediate</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">let</span> timer<span class="token punctuation">;</span>
@@ -325,7 +328,7 @@
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><ul>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><ul>
 <li>相对于上面的防抖，节流就很好理解了。在设置完定时器之后，只要这个定时器还在计时，重复执行这个时间都会触发<code>if(timer) return</code>直接返回。</li>
 </ul>
 <h2 id="2-3-第一次执行"><a href="#2-3-第一次执行" class="headerlink" title="2.3 第一次执行"></a>2.3 第一次执行</h2><p>同样，上面的节流函数在第一次执行事件就直接进入了计时。为了让第一次就能直接触发事件，我们需要使用新的思路来重新这个函数。</p>
@@ -340,18 +343,42 @@
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>这里直接将定时器替换成简单的时间减算。</p>
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><p>这里直接将定时器替换成简单的时间减算。</p>
 <ul>
 <li>首先第一次执行时，<code>now - pre</code>肯定大于延迟的值，则必定能进入内部执行函数</li>
 <li>执行完函数后，将刚刚设置的<code>now</code>时间赋值给了<code>pre</code>，下次再点击时，又重新了设置<code>now</code>，新的<code>now</code>减去旧的<code>now</code>的到的时间就是上一次执行完时间后所过的时间，如果不够设置的间隔时间，是无法再次触发事件的。</li>
 </ul>
-<h2 id="2-4-封装"><a href="#2-4-封装" class="headerlink" title="2.4 封装"></a>2.4 封装</h2><h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ul>
+<h2 id="2-4-封装"><a href="#2-4-封装" class="headerlink" title="2.4 封装"></a>2.4 封装</h2><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">throttle</span><span class="token punctuation">(</span><span class="token parameter">func<span class="token punctuation">,</span> delay<span class="token punctuation">,</span> imme</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>imme<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> pre <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> timer<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>imme<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">let</span> now <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>pre <span class="token operator">-</span> now <span class="token operator">></span> delay<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            	<span class="token function">func</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                pre <span class="token operator">=</span> now
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">let</span> context <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+            <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+                <span class="token function">func</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> delay<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ul>
 <li><p>当使用防抖函数时，内部的执行函数不能够加<code>( )</code>,否则函数会立刻执行</p>
 </li>
 <li><p>如果要传入参数，应当使用<code>debounce(func.bind(this, ...args), delay)</code></p>
 </li>
 </ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1>
+
             </div>
             <hr>
             <div>
