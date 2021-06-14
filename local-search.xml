@@ -8,9 +8,25 @@
     <link href="/2021/06/13/Promise/"/>
     <url>/2021/06/13/Promise/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<blockquote><p>作者：Sean</p><p>前言：Promise是ES6为JavaScript新增的一个异步编程模式。一经问世，它的强大之处就获得了广泛的关注和赞许。Promise的用法简单易懂，但是当我们尝试深挖其实现原理和浏览器对其执行机制时，常常会感到难以理解或者会发生意想不到的事。本文就来剖析Promise及其实现原理。</p></blockquote><h1 id="1-什么是异步编程"><a href="#1-什么是异步编程" class="headerlink" title="1. 什么是异步编程"></a>1. 什么是异步编程</h1><p>简单来说，在JavaScript里，异步编程就是将那些计算量大或者耗时长的任务放入另一队列中，以防止这些任务阻塞主任务的操作。JavaScript是单线程事件循环模型，这意味着它只能够按照脚本的编辑顺序从上到下依次执行语句，当遇到了异步任务，它会将异步任务依次推入异步任务事件队列，当所有同步任务和微任务执行完毕，才会从队列中取出异步任务依次执行。</p><p>在ES5时，异步编程模式为使用回调函数。例如计时器：</p><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div><p>其中的function函数就是回调函数</p>]]></content>
     
     
+    <categories>
+      
+      <category>前端开发</category>
+      
+      <category>JavaScript</category>
+      
+      <category>基础概念</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
     
   </entry>
   
