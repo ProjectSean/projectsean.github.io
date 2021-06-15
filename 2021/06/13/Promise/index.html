@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      462 字
+      1.5k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      17
        分钟
     </span>
   
@@ -272,8 +272,61 @@
 
 
 
-<h1 id="3-使用Promise"><a href="#3-使用Promise" class="headerlink" title="3. 使用Promise"></a>3. 使用Promise</h1><p>于是，ES6就推出了Promise (期约)。</p>
+<h1 id="3-使用Promise"><a href="#3-使用Promise" class="headerlink" title="3. 使用Promise"></a>3. 使用Promise</h1><p>于是，ES6就推出了Promise (期约)。让我们先看一看它是如何使用的：</p>
+<div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> p1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> rejected</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"ok"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>resolve <span class="token operator">+</span> <span class="token string">"ok"</span><span class="token punctuation">)</span> <span class="token comment">// "okok"</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">resolve</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"ok2"</span><span class="token punctuation">)</span>          <span class="token comment">// "ok2"</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">/*-------------------------------------------*/</span>
+<span class="token keyword">let</span> p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> rejected</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">rejected</span><span class="token punctuation">(</span><span class="token string">"fail"</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>rejected <span class="token operator">+</span> <span class="token string">"fail"</span><span class="token punctuation">)</span> <span class="token comment">// </span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">rejected</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"fail"</span><span class="token punctuation">)</span>          <span class="token comment">// fail</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
+<p><strong>乍一看上去很复杂，这都是什么啊！不要着急，让我们一步一步来探究promise！</strong></p>
+<ul>
+<li>首先，我们需要实例化一个<code>Promise</code>对象。</li>
+<li>很明显，我们能够看出，这个<code>Promise</code>需要传入一个回调函数作为参数。而这个回调函数需要传入两个参数，第一个是成功，第二个是失败。而这个函数内部执行了一个<code>resolve(&quot;ok&quot;)</code>或者<code>rejected(&quot;fail&quot;)</code>, 这是在决定这个Promise最终的结果是成功还是失败。当然函数内部也可以执行其他语句，但是一定要在<strong>决定状态之前执行</strong>。</li>
+<li>接着就是Promise后面紧跟的<code>.then()</code>, 这就是用来处理成功或者失败后结果的方法。then里面同样传入一个回调函数作为参数。回调函数同样有两个参数，一个为成功回调函数，另一个为失败回调函数。当promise本体确定为成功状态时，then方法里回调函数的成功参数则能获取到成功的传值。失败状态也同样适用。</li>
+<li>而catch方法则只用来处理失败状态，它只有一个参数<code>rejected</code></li>
+</ul>
+<h1 id="3-解决回调地狱问题"><a href="#3-解决回调地狱问题" class="headerlink" title="3. 解决回调地狱问题"></a>3. 解决回调地狱问题</h1><p>Promise的基本原理已经明白了，那它是如何解决回调地狱的问题呢？如我们来看看！</p>
+<h2 id="3-1-链式调用"><a href="#3-1-链式调用" class="headerlink" title="3.1 链式调用"></a>3.1 链式调用</h2><p>回调地狱的主要问题是回调函数嵌套。而Promise则是适用then方法的链式调用处理这个问题。即不管有多少回调函数需要嵌套，只需要新增一个then方法，跟在上一个then后面即可。</p>
+<p>Promise之所以可以这么做，是因为<strong>每一个then方法内部都返回了一个新的Promise对象。</strong></p>
+<h2 id="3-2-异常穿透"><a href="#3-2-异常穿透" class="headerlink" title="3.2 异常穿透"></a>3.2 异常穿透</h2><p>同时，我们刚刚也谈及了回调地狱难以处理错误的情况。那Promise是如何解决的呢？事实上，不管Promise后面跟着多少<code>then</code>方法，我们只可以在<code>then</code>方法里执行成功回调函数，而在最后接上一个<code>catch</code>方法来处理错误。一旦Promise本身的状态变成错误，它就会越过中间所有的then方法中的成功回调函数去执行最后的catch错误处理。</p>
+<p>另外，如果中间有<code>then</code>方法抛出了错误，同样会越过下面所有的成功回调，去执行最后的错误回调函数。这就是Promise的异常穿透特性。</p>
+<h1 id="4-特性及优缺点"><a href="#4-特性及优缺点" class="headerlink" title="4. 特性及优缺点"></a>4. 特性及优缺点</h1><h2 id="4-1-Promise特性"><a href="#4-1-Promise特性" class="headerlink" title="4.1 Promise特性"></a>4.1 Promise特性</h2><ul>
+<li>Promise的状态有待定<code>pending</code>，成功<code>fullfilled</code>，失败<code>rejected</code>三种，状态之间只能由刚实例化时的待定转向成功或者待定转向失败。<strong>没有第三种可能</strong>！</li>
+<li>Promise的状态一旦确定，无法逆转，无法撤销。</li>
+</ul>
+<h2 id="4-2-优缺点"><a href="#4-2-优缺点" class="headerlink" title="4.2 优缺点"></a>4.2 优缺点</h2><p>Promise的优点就是解决了回调地狱带来的问题。</p>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>状态一旦确定无法逆转无法撤销</li>
+<li>Promise的执行过程不能取消</li>
+<li>不能读取异步过程的进度</li>
+<li>错误仍然需要在回调函数中获取</li>
+</ul>
+<h1 id="5-Promise的其他方法"><a href="#5-Promise的其他方法" class="headerlink" title="5. Promise的其他方法"></a>5. Promise的其他方法</h1><ul>
+<li><p><code>.finally</code> 不过状态是成功还是失败，不管中间经历了多少<code>then</code>方法回调，等待上面的全部执行完成之后，<code>finally</code>里的回调函数一定会执行。</p>
+</li>
+<li><p><code>Promise.all </code>传入一组promise实例，<strong>只有当所有实例都成功</strong>，这个<code>all</code>的新promise才进入成功状态，否则失败。</p>
+</li>
+<li><p><code>Promise.race</code> 传入一组promise实例，这个<code>race</code>的新promise的状态就是<strong>内部第一个产生状态</strong>的promise的实例的状态。</p>
+</li>
+<li><p><code>Promise.any</code> 传入一组promise实例，<strong>只要有一个promise成功了</strong>，这个<code>any</code>的新promise的状态为成功。否则失败。</p>
+</li>
+<li><p><code>Promise.allsettled </code> 传入一组promise实例，当所有promise有结果后，<strong>不管成功还是失败</strong>，这个<code>allsettled</code>的新promise进入成功状态。</p>
+</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>JavaScript高级程序设计（第四版）
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
             </div>
             <hr>
             <div>
