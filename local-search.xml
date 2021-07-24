@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>http常见错误状态码</title>
+    <link href="/2021/07/24/http%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E7%A0%81/"/>
+    <url>/2021/07/24/http%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E7%A0%81/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>作者： Sean</p><p>前言：http状态码作为识别网络请求状态的重要方式，在平时开发中识别他们别通过他们解决问题是十分重要的</p></blockquote><h1 id="2xx"><a href="#2xx" class="headerlink" title="2xx"></a>2xx</h1><p>表示服务器收到并<strong>成功</strong>处理了客户端请求</p><ul><li><strong>200 OK</strong>. 表示一切正常，如果不是<code>Head</code>请求，服务器返回的响应头会有body数据。</li><li><strong>204 No Content</strong>. 响应后没有body数据</li><li><strong>206 Partial Content</strong>. （是HTTP分块下载或断点续传的基础），在客户端发送范围请求，要求获取资源的部分数据出现时的状态码。比如使用迅雷下载范围资源</li></ul><h1 id="3xx"><a href="#3xx" class="headerlink" title="3xx"></a>3xx</h1><p>表示客户端请求的资源发生了变动，客户端必须使用新的URI发送请求获取资源。也称为<strong>重定向</strong></p><ul><li>301 Move Permanently 永久重定向 请求的资源已经不存在了，需要改用新的URI再次访问</li><li>302 Found 临时重定向，请求资源还在，但是需要暂时用另一个URI访问</li><li>303 See Other 临时重定向，总是用GET请求新的URI</li><li>304 Not Modified 协商缓存，其实与重定向无关。当请求资源是命中了协商缓存时出现的状态码</li></ul><h1 id="4xx"><a href="#4xx" class="headerlink" title="4xx"></a>4xx</h1><p>表示<strong>客户端</strong>发送的请求报文有误，服务器端无法处理返回的错误状态码</p><ul><li><strong>400 Bad Request</strong>. 客户端报文有误，是一个通用且笼统的错误码</li><li><strong>401 Unauthorized</strong>. 请求没被授权</li><li><strong>403 Forbidden</strong>. 被服务器禁止了访问和请求</li><li><strong>404 Not Found</strong>. 请求的资源找不到，无法给客户端提供</li><li>405 Method Not Allowed. 请求方式不被接受</li><li>408 Request Timeout. 请求超时了</li></ul><h1 id="5xx"><a href="#5xx" class="headerlink" title="5xx"></a>5xx</h1><p>客户端没有问题，但是<strong>服务器端</strong>发生了错误</p><ul><li>500 Internal Server Error. 和400类似，服务器端发生了错误，是一个通用且笼统的错误码</li><li>501 Not Implemented. 请求的功能暂时还不支持。</li><li>502 Bad Gateway. 通常服务器端作为网关或者代理时返回的错误码，表示服务器自身工作正常，但是访问后端服务器时发生错误。</li><li>503 Service Unavailable. 表示服务器现在很忙，暂时无法回应。可能是过载了或者在维护</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机网络</category>
+      
+      <category>网络安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>总找外国男友的女生A</title>
     <link href="/2021/06/15/%E6%80%BB%E6%89%BE%E5%A4%96%E5%9B%BD%E7%94%B7%E5%8F%8B%E7%9A%84%E5%A5%B3%E7%94%9FA/"/>
     <url>/2021/06/15/%E6%80%BB%E6%89%BE%E5%A4%96%E5%9B%BD%E7%94%B7%E5%8F%8B%E7%9A%84%E5%A5%B3%E7%94%9FA/</url>
